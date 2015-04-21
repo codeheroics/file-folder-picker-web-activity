@@ -2,6 +2,7 @@
 
 * [JulR43](https://github.com/JulR43)
 * [Spanti Nicola](https://github.com/RyDroid)
+* [Hugo Agbonon](https://github.com/hugo-agbonon)
 
 **Translators**
 

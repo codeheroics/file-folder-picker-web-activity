@@ -39,16 +39,11 @@ header.fixed *[disabled="disabled"] {
   width: 100%;
 }
 
-
-#back:not(.folder) {
-  visibility: hidden;
-}
-
-#back.folder {
+#back {
   display: none;
 }
 
-#close.pick {
+#done {
   display: none;
 }
 

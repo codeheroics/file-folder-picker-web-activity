@@ -1,86 +1,87 @@
-# File Manager
+# File and Folder Picker Web Activity
 
-File Manager is an app for Firefox OS to explore and manage files from SD card.
+This is file & folder picker intended to be used as a [web activity](https://developer.mozilla.org/en-US/docs/Web/API/Web_Activities) from a **FirefoxOS app**
 
-**Requirements**
+It is a stripped down fork of [File Manager](https://github.com/elfoxero/file-manager), only keeping the ability to select files and folders.
 
-This app requires permissions to access to SD card.
+## Features
+- Pick a file (sends back file infos)
+- Pick a folder (sends back the path)
 
-**Features**
+## Requirements
+Your app will need the permissions to access to SD card.
 
-- Allows to copy, move, rename and delete files.
-- Allows to create, rename and delete folders.
-- Opens any file as music, video, text or image.
-- Opens PDF files (requires Firefox OS 1.4 or greater).
-- Allows to set as wallpaper any image.
-- Allows to share any file via bluetooth, email and more.
-- Allows to create and edit text plain files.
-- Allows to manage any folder making long press on it.
+## Why use it
+Use this if
+- You need to pick an arbitrary file or folder on your FirefoxOS app
+- The default apps aren't enough (eg. you do not want a picture/music/video)
+- You don't want to rely on the presence of another app to do this (eg. File Manager)
 
-**For developers: integrate your app with File Manager** (requires File Manager 1.0-beta2)
-
-If you have created an app that interacts with some files in SD card, File Manager can use your app to open these files directly.
-
-You just need to add an activity to your manifest file, specifying the file type that your app supports. For example if you want to create a simple SVG image viewer:
-
+## How to use it
+Clone this repository into your app.
+Add the following to your `manifest.webapp`:
 
 ```js
 {
 	"activities": {
-		"open": {
-			"filters": {
-				"type": ["image/svg+xml"]
-			},
+		"pick-file": {
 			"disposition": "inline",
 			"returnValue": true,
-			"href": "/index.html"
-		}
+			"href": "/path/to/this/repo/index.html"
+		},
+		"pick-folder": {
+			"disposition": "inline",
+			"returnValue": true,
+			"href": "/path/to/this/repo/index.html"
+		},
 	}
 }
 ```
 
-File Manager will send to your app the following data:
+Then in your app, call the activity like this:
+
+```js
+var activity = new MozActivity({
+	name: "pick-file" // Or pick-folder
+});
+
+activity.onsuccess = function() {
+	console.log(this.result);
+};
+
+activity.onerror = function() {
+	console.log(this.error);
+};
+```
+
+
+The Picker will send to your app the following data for a file:
 
 ```js
 {
 	"type": "image/svg+xml",
-	"filename": "/sdcard/image.svg", // For example
+	"filename": "/sdcard/image.svg",
 	"blob": [object Blob],
 	"allowSave": false
 }
 ```
 
+For a folder:
 
-Here is the complete example: [https://gist.github.com/elfoxero/cca6e8496de7412a0b37](https://gist.github.com/elfoxero/cca6e8496de7412a0b37)
+```js
+{
+	"path": "path/to/your/folder"
+}
+```
 
-Currently, the app supports the following file types:
+## Misc
+You should change the activities' names to specific to your app
+if you don't want other apps calling the activity
+(for example, "pick-file@hugo/conteur").
 
-Description | Extension        | File type
------------ | ---------------- | ------------------
-Image       | jpg, jpeg        | image/jpeg
-Image       | png              | image/png
-Image       | gif              | image/gif
-Image       | bmp              | image/bmp
-Image       | svg              | image/svg+xml
-Audio       | mp3              | audio/mpeg
-Audio       | ogg              | audio/ogg
-Audio       | wav              | audio/x-wav
-Audio       | flac             | audio/x-flac
-Video       | webm             | video/webm
-Video       | mp4              | video/mp4
-Video       | 3gp              | video/3gpp
-Video       | ogv              | video/ogg
-Video       | mkv              | video/x-matroska
-Video       | avi              | video/x-msvideo
-Video       | m4v              | video/x-m4v
+The names need to contain "file" or "folder" for the picker to know what to work with.
 
-[View the complete list](FILETYPES.md)
+## Resources
 
-For more information about Web Activities, please visit [https://developer.mozilla.org/en-US/docs/Web/API/Web_Activities](https://developer.mozilla.org/en-US/docs/Web/API/Web_Activities).
-
-**Resources**
-
-This project is open source under GPL license.
+This project is open source under GPL license as is the original [File Manager](https://github.com/elfoxero/file-manager)
 Uses a variant of [Building Blocks](http://buildingfirefoxos.com/) library and icon theme from [Numix Circle](https://github.com/numixproject/numix-icon-theme-circle).
-
-[Available in Firefox Marketplace](https://marketplace.firefox.com/app/file-manager)

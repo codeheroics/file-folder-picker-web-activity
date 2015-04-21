@@ -21,28 +21,15 @@
     }
   },
   "activities": {
-    "open": {
-      "filters": {
-        "type": ["text/plain", "text/javascript", "application/x-javascript", "text/xml", "text/css", "text/html", "application/zip"]
-      },
-      "disposition": "inline",
-      "returnValue": true,
-      "href": "/elements/viewer.html"
-    },
     "pick-folder": {
       "disposition": "inline",
       "returnValue": true,
-      "href": "/elements/folder.html"
+      "href": "index.html"
     },
-    "filemanager@elfoxero:pick-folder": {
+    "pick-file": {
       "disposition": "inline",
       "returnValue": true,
-      "href": "/elements/folder.html"
-    },
-    "pick": {
-      "disposition": "inline",
-      "returnValue": true,
-      "href": "/elements/pick.html"
+      "href": "index.html"
     }
   },
   "locales": {
