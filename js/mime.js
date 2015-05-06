@@ -20,7 +20,7 @@
 *
 */
 
-var MIME = [
+window.FilePicker.MIME = [
   {
     'mime': 'image/*', // Only supported natively
     'pattern': '^image\/.+',

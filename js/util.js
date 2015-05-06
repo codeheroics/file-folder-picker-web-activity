@@ -19,18 +19,13 @@
 * IN THE SOFTWARE.
 *
 */
+window.FilePicker.utils = window.FilePicker.utils || {};
 
-window.utils = window.utils || {};
-
-document.byId = function (query) {
-  return document.getElementById(query);
-};
-
-window.utils.preload = (function(win, doc, undefined) {
+FilePicker.utils.preload = (function() {
   function completePreload() {
-    var loadingProgress = doc.byId('loading-progress');
-    var loading = doc.byId('loading');
-    var self = win.utils.preload;
+    var loadingProgress = document.getElementById('loading-progress');
+    var loading = document.getElementById('loading');
+    var self = FilePicker.utils.preload;
 
     loading.className = 'fadeOut';
 
@@ -45,9 +40,9 @@ window.utils.preload = (function(win, doc, undefined) {
   }
 
   function startPreload() {
-    var self = win.utils.preload;
+    var self = FilePicker.utils.preload;
 
-    doc.byId('loading-bar').className = 'fade-in';
+    document.getElementById('loading-bar').className = 'fade-in';
 
     if (typeof self.onstart === 'function') {
       self.onstart.call(self);
@@ -56,10 +51,10 @@ window.utils.preload = (function(win, doc, undefined) {
 
   return {
     get max() {
-      return doc.byId('loading-progress').max;
+      return document.getElementById('loading-progress').max;
     },
     set max(val) {
-      var loadingProgress = doc.byId('loading-progress');
+      var loadingProgress = document.getElementById('loading-progress');
       var defaultMax = loadingProgress.max;
 
       loadingProgress.max = val;
@@ -69,10 +64,10 @@ window.utils.preload = (function(win, doc, undefined) {
       }
     },
     get value() {
-      return doc.byId('loading-progress').value;
+      return document.getElementById('loading-progress').value;
     },
     set value(val) {
-      var loadingProgress = doc.byId('loading-progress');
+      var loadingProgress = document.getElementById('loading-progress');
 
       loadingProgress.value = val;
 
@@ -85,4 +80,4 @@ window.utils.preload = (function(win, doc, undefined) {
     'oncomplete': null,
     'onstart': null
   };
-})(window, document);
+})();
